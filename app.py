@@ -60,6 +60,7 @@ if selected == 'Home':
         "Enter the reviews (required)", key=1)
 
     if st.button('Predict', key=3):
+        nltk.download('punkt')
         transform_review = transform_text(input_review)
         score = TextBlob(input_review).sentiment.polarity
         score = round(abs(score*100))
@@ -237,7 +238,7 @@ if selected == "Dashboard":
     st.subheader("Airline tweets by sentiment")
     # df=df.head(5000)
     # df['transformed_text'] = df['text'].apply(transform_text)
-
+    nltk.download('vader_lexicon')
     df['date'] = pd.to_datetime(df['tweet_created'])
 
     choice = st.multiselect("Pick airlines", ('US Airways', 'United',
