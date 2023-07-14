@@ -127,6 +127,7 @@ venv/
 ENV/
 env.bak/
 venv.bak/
+sentiment_app
 
 # Spyder project settings
 .spyderproject
