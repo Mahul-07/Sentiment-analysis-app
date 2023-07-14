@@ -123,7 +123,7 @@ if selected == 'Data Sentiments':
     def upload_file():
         file = st.file_uploader(label="Choose a file", type=['csv'])
         if file is not None:
-            # df = pd.read_csv(file, encoding='MacRoman')
+            df = pd.read_csv(file, encoding='MacRoman')
             # if st.checkbox("Show raw data"):
             st.write('**Raw Data**')
             st.dataframe(df.head(3))
