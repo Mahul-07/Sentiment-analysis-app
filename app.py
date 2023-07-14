@@ -61,6 +61,7 @@ if selected == 'Home':
 
     if st.button('Predict', key=3):
         nltk.download('punkt')
+        nltk.download('stopwords')
         transform_review = transform_text(input_review)
         score = TextBlob(input_review).sentiment.polarity
         score = round(abs(score*100))
@@ -130,6 +131,8 @@ if selected == 'Data Sentiments':
             st.dataframe(df.head(3))
             if st.button('Predict', key=1):
                 try:
+                    nltk.download('punkt')
+                    nltk.download('stopwords')
                     df = df.head(1000)
                     df['transformed_text'] = df['Tweets'].apply(transform_text)
                     df['Polarity'] = df['transformed_text'].apply(
@@ -180,6 +183,8 @@ if selected == 'Data Sentiments':
                 except:
                     pass
                 try:
+                    nltk.download('punkt')
+                    nltk.download('stopwords')
                     df['transformed_text'] = df['text'].apply(transform_text)
                     df['Polarity'] = df['transformed_text'].apply(
                         getPolarity)
