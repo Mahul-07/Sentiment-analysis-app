@@ -1,3 +1,4 @@
+# Imported the neccessary libraries
 import nltk
 import string
 import pickle
@@ -13,12 +14,13 @@ from nltk.stem.porter import PorterStemmer
 from streamlit_option_menu import option_menu
 from nltk.sentiment.vader import SentimentIntensityAnalyzer
 
-
+# Set up the page configration 
 st.set_page_config(page_title="Sentiment Analysis",
                    page_icon='browser-chrome',
 
                    )
 
+# Created the navigation bar using option_menu function in streamlit
 selected = option_menu(
     menu_title=None,
     options=["Home", "Data Sentiments", "Dashboard"],
@@ -27,7 +29,10 @@ selected = option_menu(
     orientation="horizontal",
 )
 
+# In this condition we taking a input as text and predicting the text sentiment i.e(positive,negative,netural)
 if selected == 'Home':
+    '''This function takes text as input and returns a cleaned text as output
+        following the neccessary steps Removable of stopwords, Stemming, Tokenization, punctuation '''
     def transform_text(text):
         text = text.lower()
         text = nltk.word_tokenize(text)
@@ -50,7 +55,7 @@ if selected == 'Home':
             y.append(ps.stem(i))
 
         return " ".join(y)
-
+    # Loaded the tfidf vectorizer file as well as loaded the custom model  
     tfidf = pickle.load(open('vectorizer_mnb.pkl', 'rb'))
     model = pickle.load(open('model_mnb.pkl', 'rb'))
 
@@ -58,7 +63,7 @@ if selected == 'Home':
     placeholder = st.empty()
     input_review = placeholder.text_input(
         "Enter the reviews (required)", key=1)
-
+    # Predicting the sentiments of text using the custom model 
     if st.button('Predict', key=3):
         nltk.download('punkt')
         nltk.download('stopwords')
@@ -89,6 +94,9 @@ if selected == 'Home':
             st.subheader('100%')
         else:
             st.subheader(str(score) + '%')
+
+''' In this condition we are uploading the dataset and based upon that dataset first we 
+    are predicting the sentiments of text and then showing analysis on the same dataset. ''' 
 
 if selected == 'Data Sentiments':
 
@@ -121,7 +129,7 @@ if selected == 'Data Sentiments':
 
     def getPolarity(text):
         return TextBlob(text).sentiment.polarity
-
+# Uploading dataset and showing analysis of same dataset
     def upload_file():
         file = st.file_uploader(label="Choose a file", type=['csv'])
         if file is not None:
@@ -176,9 +184,9 @@ if selected == 'Data Sentiments':
                     line_fig1 = px.line(df, x='Date', y='Num_Of_Retwwet')
                     st.plotly_chart(line_fig1)
                     # st.write('**Line chart of Predicted Label**')
-                    line_fig2 = px.line(predicted_df.head(300), x='Date', y=np.random.normal(
-                        5.0, 1.0, 300), color='Predicted_label')
-                    st.plotly_chart(line_fig2)
+                    # line_fig2 = px.line(predicted_df.head(300), x='Date', y=np.random.normal(
+                    #     5.0, 1.0, 300), color='Predicted_label')
+                    # st.plotly_chart(line_fig2)
 
                 except:
                     pass
@@ -225,10 +233,10 @@ if selected == 'Data Sentiments':
                     st.write('**Line chart of Num of Retweets**')
                     line_fig1 = px.line(df, x='Date', y='Num_Of_Retwwet')
                     st.plotly_chart(line_fig1)
-                    st.write('**Line chart of Predicted Label**')
-                    line_fig2 = px.line(predicted_df.head(500), x='Date', y=np.random.normal(
-                        5.0, 1.0, 500), color='Predicted_label')
-                    st.plotly_chart(line_fig2)
+                    # st.write('**Line chart of Predicted Label**')
+                    # line_fig2 = px.line(predicted_df.head(500), x='Date', y=np.random.normal(
+                    #     5.0, 1.0, 500), color='Predicted_label')
+                    # st.plotly_chart(line_fig2)
                     # scatter_fig = px.scatter(predicted_df.head(900), x = 'Date' , y = np.random.normal(5.0, 1.0, 900) ,color='Predicted_label')
                     # st.plotly_chart(scatter_fig)
                 except:
@@ -236,7 +244,7 @@ if selected == 'Data Sentiments':
 
     upload_file()
 
-
+# In this condition we showing the visualization of dataset
 if selected == "Dashboard":
     df = pd.read_csv('Tweets.csv')
     df = df.drop_duplicates(keep='first')
