@@ -31,8 +31,8 @@ selected = option_menu(
 
 # In this condition we taking a input as text and predicting the text sentiment i.e(positive,negative,netural)
 if selected == 'Home':
-    '''This function takes text as input and returns a cleaned text as output
-        following the neccessary steps Removable of stopwords, Stemming, Tokenization, punctuation '''
+    # '''This function takes text as input and returns a cleaned text as output
+    #     following the neccessary steps Removable of stopwords, Stemming, Tokenization, punctuation '''
     def transform_text(text):
         text = text.lower()
         text = nltk.word_tokenize(text)
@@ -95,8 +95,8 @@ if selected == 'Home':
         else:
             st.subheader(str(score) + '%')
 
-''' In this condition we are uploading the dataset and based upon that dataset first we 
-    are predicting the sentiments of text and then showing analysis on the same dataset. ''' 
+# ''' In this condition we are uploading the dataset and based upon that dataset first we 
+#     are predicting the sentiments of text and then showing analysis on the same dataset. ''' 
 
 if selected == 'Data Sentiments':
 
