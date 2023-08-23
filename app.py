@@ -1,4 +1,5 @@
 # Imported the neccessary libraries
+import os
 import nltk
 import string
 import pickle
@@ -99,7 +100,12 @@ if selected == 'Home':
 #     are predicting the sentiments of text and then showing analysis on the same dataset. ''' 
 
 if selected == 'Data Sentiments':
-
+    path = os.getcwd()+'\Dataset\Airline.csv'
+    df_download=pd.read_csv(path,encoding='MacRoman')
+    st.download_button(label='Download Dataset',
+        data= df_download.to_csv().encode('utf-8'),file_name='airline_data.csv',
+                            mime='text/csv' 
+                            )
     def transform_text(text):
         text = text.lower()
         text = nltk.word_tokenize(text)
