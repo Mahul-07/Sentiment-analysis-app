@@ -100,7 +100,7 @@ if selected == 'Home':
 #     are predicting the sentiments of text and then showing analysis on the same dataset. ''' 
 
 if selected == 'Data Sentiments':
-    path = os.getcwd()+'\Dataset\Airline.csv'
+    path = os.getcwd()+'/Dataset/Airline.csv'
     df_download=pd.read_csv(path,encoding='MacRoman')
     st.download_button(label='Download Dataset',
         data= df_download.to_csv().encode('utf-8'),file_name='airline_data.csv',
@@ -309,7 +309,7 @@ if selected == "Dashboard":
         "y": "Tweet Count",
         "x": "W Day",
     })
-    col12.markdown("**Tweets by Week Day's**")
+    col12.markdown("**Weekly Analysis**")
     col12.plotly_chart(fig5)
     # col10, col11 = st.columns([3, 1])
     # x = np.random.normal(5.0, 1.0, 14604)
@@ -334,7 +334,7 @@ if selected == "Dashboard":
         "x": "Month",
     })
 
-    col15.markdown("**Tweets by Month**")
+    col15.markdown("**Monthly Analysis**")
     col15.plotly_chart(fig7)
 
     col3, col4 = st.columns([3, 1])
