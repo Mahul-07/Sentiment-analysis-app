@@ -282,7 +282,7 @@ if selected == "Dashboard":
         return (d["positive"] + d["negative"] or d['negative'] - d['neutral'])
 
     df['sentiment'] = df.apply(lambda row: sentiment(row), axis=1)
-
+    custom_colors={-1: 'red', 0: 'gray', 1: 'green'}
     col16, col17 = st.columns([3, 1])
     fig8 = px.scatter(df, x='date',
                       y='sentiment', color='sentiment')
@@ -339,9 +339,17 @@ if selected == "Dashboard":
 
     col3, col4 = st.columns([3, 1])
     airline_sentiment_count = df['airline_sentiment'].value_counts()
+    colors={
+        'positive':'#008000',
+        'negative':'#FF0000',
+        'neutral': '#0000FF'
+    }
     fig1 = px.pie(
         df['airline_sentiment'],
         names="airline_sentiment",
+        color='airline_sentiment',
+        color_discrete_map=colors
+
     )
 
     # Second chart title
